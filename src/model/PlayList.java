@@ -1,19 +1,23 @@
 package model;
 
 public abstract class PlayList{
+	private int amountSongs = 30;
 	private String name;
 	private int duration;
 	private Genre[] genres;
+	private Song[] songs;
 	
 	public PlayList(){
 		name = new String();
 		duration = 0;
 		genres = new Genre[7];
+		songs = new Song[amountSongs];
 	}//End constructor1
 	public PlayList(String name, int duration){
 		this.name = name;
 		this.duration = duration;
 		genres = new Genre[7];
+		songs = new Song[amountSongs];
 	}//End constructor2
 	public void setName(String name){
 		this.name = name;

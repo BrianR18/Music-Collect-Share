@@ -15,7 +15,7 @@ public class User{
 		category = Category.NEWBIE;
 	}//End constructor1
 	public User(String name,String password,int age){
-		this.name = name;
+		this.name = validateString(name);
 		this.password = password;
 		this.age = age;
 		shareSongs = 0;
@@ -23,7 +23,7 @@ public class User{
 	}//End constructor2
 	
 	public void setName(String name){
-		this.name = name;
+		this.name = validateString(name);
 	}//End setName.
 	public String getName(){
 		return name;
@@ -52,5 +52,35 @@ public class User{
 	public String getCategory(){
 		return category.toString();
 	}//End getCategory.
+	
+	private String validateString(String s){
+		String validated = new String();
+        for(int i = 0; i < s.length(); i++){
+            if(s.charAt(i) != ' '){
+                validated += s.charAt(i);
+            }//End if
+        }//End for
+		return validated;
+	}//End validateString
+	public boolean checkPassword(String p){
+		boolean check = false;
+		if(p.equals(getPassword())){
+			check = true;
+		}//End if
+		return check;
+	}//End checkPassword
+	public void increaseShareSongs(){
+		shareSongs++;
+	}//End increaseShareSongs
+	
+	//
+	public void updateCategory(){
+		if(getShareSongs() == 3)
+			category = Category.LITTLE_CONTRIBUTOR;
+		else if(getShareSongs() == 10)
+			category = Category.MILD_CONTRIBUTOR;
+		else if(getShareSongs() == 30)
+			category = Category.STAR_CONTRIBUTOR;
+	}//End updateCategory
 	
 }//End class User

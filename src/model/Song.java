@@ -1,8 +1,8 @@
 package model;
 
-public class Songs{
+public class Song{
 	private String tittle;
-	private String name;
+	private String artistName;
 	private String releaseDate;
 	private int duration;
 	Genre genre;
