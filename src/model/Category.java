@@ -1,5 +1,5 @@
 package model;
 
-protected enum Category{
+public enum Category{
 	NEWBIE,LITTLE_CONTRIBUTOR,MILD_CONTRIBUTOR, STAR_CONTRIBUTOR
-	}; //End Category
+}; //End Category
