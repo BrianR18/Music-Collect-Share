@@ -8,7 +8,7 @@ public class MCS{
 	public MCS(){
 		users = new User[10];
 		poolSongs = new Song[30];
-		playList = new PlayList[30];
+		playList = new PlayList[20];
 	}//End constructor
 	
 	public String addUser(String name,int age,String password){
@@ -50,7 +50,7 @@ public class MCS{
 		}//End for
 		return users;
 	}//End displayUsers.
-	public String addSong(String user,String tittle, String artistName, String releaseDate,int minutes,int seconds,String genre){
+	public String addSong(String user,String title, String artistName, String releaseDate,int minutes,int seconds,String genre){
 		boolean add = false;
 		String msg = "No se ha podido agregar la cancion";
 		for(int i = 0; i < users.length && !add; i++){
@@ -58,7 +58,7 @@ public class MCS{
 				if(users[i].getName().equalsIgnoreCase(user)){
 					for(int j = 0; j < poolSongs.length && !add;j++ ){
 						if(poolSongs[j] == null){
-							poolSongs[j] = new Song(tittle,artistName,releaseDate,minutes,seconds,genre);
+							poolSongs[j] = new Song(title,artistName,releaseDate,minutes,seconds,genre);
 							users[i].increaseShareSongs();
 							users[i].updateCategory();
 							add = true;
@@ -84,7 +84,7 @@ public class MCS{
 		return song;
 	}//End displayPoolSongs
 	//add public playList.
-	public String addPlayList(String name, double rate){
+	public String addPlayList(String name){
 		boolean add = false;
 		String msg = "No se ha podido crear la playList";
 		for(int i = 0; i < playList.length && !add; i++){

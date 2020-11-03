@@ -1,6 +1,6 @@
 package model;
 
-public abstract class PlayList{
+public class PlayList{
 	final private int amountSongs = 30;
 	private String playListName;
 	private int minutes;
