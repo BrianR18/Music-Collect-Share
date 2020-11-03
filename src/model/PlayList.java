@@ -58,11 +58,11 @@ public abstract class PlayList{
 			}//End if.
 		}//End for
 	}//End setGenre
-	public String getGenres(){
-		String genre = new String();
+	public String[] getGenres(){
+		String[] genre = new String[7];
 		for(int i = 0; i < genres.length; i++){
 			if(genres[i] != null){
-				genre += genres[i] + ", ";
+				genre[i] = genres[i].toString();
 			}//End if
 		}//End for
 		return genre;
@@ -109,5 +109,28 @@ public abstract class PlayList{
 		setMinutes(minutes);
 		setHours(hours);
 	}//End updateDuration.
-	
+	public String toString(){
+		String[] g = getGenres();
+		boolean nmg = false;//No more genres
+		String obj = "\n**************PlayList**************\n" + 
+					 "**Title: " + getName() + "\n";
+		if(getHours() > 0)
+			obj += String.format("**Duration: %02d:%02d:%02d\n",getHours(),getMinutes(),getSeconds());
+		else
+			obj += String.format("**Duration: %02d:%02d:%02d\n",getHours(),getMinutes(),getSeconds());
+		
+		obj += "**Genre: ";
+		if(g[0] == null )
+			obj += "Desconocido\n";
+		else{
+			for(int i = 0; i < g.length && !nmg; i++){
+				if(g[i] != null)
+					obj += g[i].toString() + ", ";
+				else
+					nmg = true;
+			}//End for
+			obj += "\n";
+		}//End else
+			return obj;
+	}//End toString
 }//End PlayList.

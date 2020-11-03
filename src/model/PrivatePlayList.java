@@ -18,5 +18,9 @@ public class PrivatePlayList extends PlayList{
 	public String getUser(){
 		return user;
 	}//End getUser
-	
+	@Override
+	public String toString(){
+		String obj = super.toString() + "Owner: " + getUser() + "\n";
+		return obj;
+	}//End toString
 }//End PrivatePlayList

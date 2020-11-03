@@ -43,11 +43,7 @@ public class MCS{
 		String users = new String();
 		for(int i = 0; i < this.users.length && !all; i++){
 			if(this.users[i] != null){
-				users += "\n***************User***************\n";
-				users += "**User name: " + this.users[i].getName() + "\n";
-				users += "**Age: " + this.users[i].getAge() + "\n";
-				users += "**Category: " + this.users[i].getCategory() + "\n";
-				users += "\n**********************************\n";
+				users += this.users[i].toString();
 			}//End if
 			else
 				all = true;
@@ -80,12 +76,7 @@ public class MCS{
 		String song = new String();
 		for(int i = 0; i < poolSongs.length && !all; i++){
 			if(poolSongs[i] != null){
-				song += "\n"+ ( i + 1)+")" +"\n***************Song***************\n";
-				song += "**Tittle: " + poolSongs[i].getTittle() + "\n";
-				song += "**Artist: " + poolSongs[i].getName() + "\n";
-				song += "**Duration: " + poolSongs[i].getMinutes() +":"+ poolSongs[i].getSecond()+ "\n";
-				song += "**Genre: " + poolSongs[i].getGenre() + "\n";
-				song += "\n**********************************\n";
+				song += "\n"+ ( i + 1)+")" + poolSongs[i].toString();
 			}//End if
 			else
 				all = true;
@@ -134,7 +125,7 @@ public class MCS{
 	
 	public String addSongToPlayList(int songIndex,int playListIndex){
 		String msg = "No se ha podido agregar la cancion a la playList.No queda espacio en la playList";
-		double add = playList[playListIndex-1].addSong(poolSongs[songIndex-1]);
+		boolean add = playList[playListIndex-1].addSong(poolSongs[songIndex-1]);
 		if(add){
 			playList[playListIndex-1].updateGenre(poolSongs[songIndex-1].getGenre());
 			playList[playListIndex-1].updateDuration(poolSongs[songIndex-1].getMinutes(),poolSongs[songIndex-1].getSecond());
@@ -142,5 +133,15 @@ public class MCS{
 		}//End if
 		return msg;
 	}//End addSongToPlayList.
-	
+	public String displayPlayList(){
+		boolean allPlayList = false;
+		String msg = new String();
+		for(int i = 0; i < playList.length && !allPlayList; i++ ){
+			if(playList[i] != null)
+				msg += playList[i].toString() + "\n";
+			else
+				allPlayList = true;
+		}//End for
+		return msg;
+	}//End displayPlayList
 }//End MCS

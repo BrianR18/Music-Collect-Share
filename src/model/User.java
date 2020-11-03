@@ -82,5 +82,13 @@ public class User{
 		else if(getShareSongs() == 30)
 			category = Category.STAR_CONTRIBUTOR;
 	}//End updateCategory
-	
+				
+	public String toString(){
+		String obj = "\n***************User***************\n" +
+					 "**User name: " + getName() + "\n" +
+					 "**Age: " + getAge() + "\n" +
+					 "**Category: " + getCategory() + "\n" +
+					 "\n**********************************\n";
+		return obj;
+	}//End toString
 }//End class User

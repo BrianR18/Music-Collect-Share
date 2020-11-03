@@ -1,24 +1,39 @@
 package model;
 
 public class PublicPlayList extends PlayList{
-	private double rate;
+	private double qualification;
 	
 	public PublicPlayList(){
 		super();
-		rate = 0;
+		qualification = 0;
 	}//End PublicPlayList
 	
-	public PublicPlayList(String name,double rate){
+	public PublicPlayList(String name,double qualification){
 		super(name);
-		this.rate = rate;
+		this.qualification = qualification;
 	}//End PublicPlayList
 	
-	public void setRate(double r){
-		rate = r;
+	public void setQualification(double q){
+		qualification = q;
 	}//End setRate
-	public double getRate(){
-		return rate;
+	public double getQualification(){
+		return qualification;
 	}//End getRate
 	
-	public double 
+	public double calculateQualification(double q){
+		double qualification = 0;
+		if(getQualification() > 0)
+			qualification = (q + getQualification())/2;
+		else
+			qualification = q;
+		
+		setQualification(qualification);
+		
+		return qualification;
+	}//End calculateQualification
+	@Override
+	public String toString(){
+		String obj = super.toString() + "Qualification: " + getQualification() + "\n";
+		return obj;
+	}//End toString
 }//End PublicPlayList

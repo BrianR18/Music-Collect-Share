@@ -18,4 +18,18 @@ public class RestrictPlayList extends PlayList{
 		return owners;
 	}//End getOwners.
 	
+	@Override
+	public String toString(){
+		String obj = super.toString() + "Owners: ";
+		boolean allOwners = false;
+		String[] owners = getOwners();
+		for(int i = 0; i < owners.length && !allOwners; i++){
+			if(owners[i] != null)
+				obj += owners[i]+", ";
+			else
+				allOwners = true;
+		}//End for
+		obj += "\n";
+		return obj;
+	}//End toString
 }//End RestrictPlayList
