@@ -27,6 +27,7 @@ public class MCS{
 			msg = "No se ha podido agregar el usuario.\nYa existe un usuario con ese nombre.";
 		return msg;
 	}//End addUser
+	
 	private boolean checkName(String name){
 		boolean check = false;
 		for(int i = 0; i < users.length && !check; i++){
