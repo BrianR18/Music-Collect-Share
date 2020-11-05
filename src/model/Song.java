@@ -59,6 +59,7 @@ public class Song{
 	public String getGenre(){
 		return genre.toString();
 	}//End getGenre
+	
 	public String toString(){
 		String obj = "\n***************Song***************\n" +
 					 "**Tittle: " + getTittle() + "\n" +

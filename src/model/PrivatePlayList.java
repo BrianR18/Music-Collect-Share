@@ -20,7 +20,7 @@ public class PrivatePlayList extends PlayList{
 	}//End getUser
 	@Override
 	public String toString(){
-		String obj = super.toString() + "Owner: " + getUser() + "\n";
+		String obj = super.toString() + "**Owner: " + getUser() + "\n";
 		return obj;
 	}//End toString
 }//End PrivatePlayList

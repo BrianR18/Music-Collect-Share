@@ -45,7 +45,7 @@ public class Menu{
 						"((((  /((((((((  ((((((((       ((((* .(*   ((((\n" +
 						"((((((((((((((((((((((((((((((((((((((((((((((((\n" +
 						"((((((((((((((((((((((((((((((((((((((((((((((((\n" +
-						"				     .#//////#.\n"+                                               
+						"                    .#//////#.\n"+                                               
 						"               .###/         /###.\n"+
 						"            ##                     ##\n"+
 						"          #*                         /#\n"+         
@@ -85,7 +85,7 @@ public class Menu{
 	}//End readOption.
 	
 	public void readUsersData(){
-		System.out.print("\nIngrese el apodo del usuario: ");
+		System.out.print("\nIngrese el apodo del usuario(el apodo se guardara sin espacios): ");
 		String name = sc.nextLine();
 		while(mcs.checkName(name)){
 			System.out.println("\""+name+"\" ya esta en uso.Elige un apodo distinto.");
@@ -97,13 +97,15 @@ public class Menu{
 		System.out.print("Ingrese su edad: ");
 		int age = sc.nextInt();
 		sc.nextLine();
-		System.out.println("\n" + mcs.addUser(name,password,age));
+		System.out.println("\n" + mcs.addUser(name,age,password));
+		sc.nextLine();
 	}//End readUsersData
 	
 	public void readSongData(){
-		System.out.print("\nIngrese el nombre sel usuario que creara la cancion: ");
+		String msg = new String();
+		System.out.print("\nIngrese el nombre del usuario que creara la cancion: ");
 		String user = sc.nextLine();
-		while(mcs.checkName(name)){
+		while(!mcs.checkName(user)){
 			System.out.println("\""+user+"\" no es un usuario registrado en la aplicacion.");
 			System.out.print("\nIngrese el nombre sel usuario que creara la cancion: ");
 			user = sc.nextLine();
@@ -111,37 +113,175 @@ public class Menu{
 		System.out.print("Ingrese el titulo de la cancion: ");
 		String title = sc.nextLine();
 		System.out.print("Ingrese el nombre del artista o banda de la cancion: ");
-		String artistname = sc.nextLine();
+		String artistName = sc.nextLine();
 		System.out.print("Ingrese la fecha de lanzamiento del disco: ");
 		String date = sc.nextLine();
 		System.out.print("Ingrese los minutos que dura la cancion: ");
 		int minutes = sc.nextInt();
+		sc.nextLine();
 		System.out.print("Ingrese los segundos que dura la cancion: ");
 		int seconds = sc.nextInt();
-		
+		sc.nextLine();
+		System.out.println("Mostrando los generos musicales posibles...");
+		System.out.println(mcs.displayGenres());
+		System.out.println("Escriba el genero de la cancion: ");
+		String genre = sc.nextLine();
+		while(!mcs.checkGenre(genre)){
+			System.out.println("El genero ingresado es incorrecto!");
+			System.out.println("Escriba el genero de la cancion: ");
+			genre = sc.nextLine();
+		}//End while
+		genre = genre.toUpperCase();
+		msg = mcs.addSong(user,title,artistName,date,minutes,seconds,genre);
+		System.out.println("\n" + msg);
 	}//End readSongData
+	
+	public void readPlayListData(){
+		
+		String msg = new String();
+		String owner = new String();
+		String[] owners = new String[5];
+		System.out.print("\nIngrese el nombre de la playlist: ");
+		String name = sc.nextLine();
+		System.out.println("Listando tipos de playlist...");
+		System.out.println("\n[1]Playlist publica.\n[2]Playlist restringida.\n[3]Playlist privada.");
+		System.out.print("Ingrese el tipo de playlist que creara: ");
+		int opt = sc.nextInt();
+		while(opt < 1 || opt > 3){
+			System.out.println("\nOpcion erronea!");
+			System.out.print("Ingrese el tipo de playlist que creara: ");
+		    opt = sc.nextInt();
+		}//End while
+		sc.nextLine();
+		switch(opt){
+			case PUBLIC:
+				msg = mcs.addPlayList(name);
+				break;
+			case RESTRICTED:
+				boolean end = false;
+				int i = 0;
+				opt = 0;
+				while(!end || i >= 5){
+					System.out.print("\n[1] Agregar propietario(maximo 5).\n[Cualquier otro numero] Dejar de agregar propietarios\n");
+					System.out.print("Ingrese la opcion: ");
+					opt = sc.nextInt();
+					sc.nextLine();
+					if(opt == 1){
+						System.out.print("Ingresa el nombre del propietario (sin espacios): ");
+						owners[i] = sc.nextLine();
+						while(!mcs.checkName(owners[i])){
+							System.out.println(owners[i] + ", no es un usuario registrado en la aplicacion.");
+							System.out.print("Ingresa el nombre del propietario (sin espacios): ");
+							owners[i] = sc.nextLine();
+						}//End while
+						i++;
+					}//End if
+					else
+						end = true;
+				}//End while
+				msg = mcs.addPlayList(name,owners);
+				break;
+				
+			case PRIVATE:
+				System.out.print("\nIngresa el nombre del propietario (sin espacios): ");
+				owner = sc.nextLine();
+				while(!mcs.checkName(owner)){
+					System.out.println(owner + ", no es un usuario registrado en la aplicacion.");
+					System.out.print("Ingresa el nombre del propietario (sin espacios): ");
+					owner = sc.nextLine();
+				}//End while
+				msg = mcs.addPlayList(name,owner);
+				break;
+		}//End switch
+		System.out.println("\n" + msg);
+		sc.nextLine();
+	}//End readPlayListData.
+	
+	public void addSong(){
+		System.out.println("\nMostrando playList existentes...");
+		System.out.println(mcs.displayPlayListNames());
+		System.out.print("Ingrese el numero de la playlist para agregar una cancion: ");
+		int playlistIndex = sc.nextInt();
+		while( playlistIndex < 1 && playlistIndex > mcs.amountPlaylist()){
+			System.out.println("Opcion incorrecta!!");
+			System.out.print("Ingrese el numero de la playlist para agregar una cancion: ");
+		    playlistIndex = sc.nextInt();
+		}//End while
+		System.out.println("\nMostrando canciones existentes...");
+		System.out.print(mcs.displaySongsNames());
+		System.out.print("Ingrese el numero de la cancion para agregarla: ");
+		int songIndex = sc.nextInt();
+		while( songIndex < 1 && songIndex > mcs.amountPlaylist()){
+			System.out.println("Opcion incorrecta!!");
+			System.out.print("Ingrese el numero de la cancion para agregarla: ");
+		    songIndex = sc.nextInt();
+		}//End while
+		sc.nextLine();
+		System.out.println("\n" + mcs.addSongToPlayList(songIndex,playlistIndex));
+		sc.nextLine();
+	}//End addSong.
 	
 	public void doOperation(int option){
 		switch(option){
 			case ADD_USERS:
-				readUsersData(); 
+				readUsersData();
 				break;
 			case SEE_USERS:
-				System.out.println(mcs.displayUsers());
+				if(!mcs.isNullUser())
+					System.out.println(mcs.displayUsers());
+				else
+					System.out.println("\nNo existen usuarios que mostrar.");
+					sc.nextLine();
 				break;
 			case ADD_SONG:
-				
+				if(!mcs.isNullUser())
+					readSongData();
+				else
+					System.out.println("\nTal parece que no hay usuarios registrados aun.\nPrueba crear un usuario primero.");
+					sc.nextLine();
 				break;
 			case SEE_SONGS:
+				if(!mcs.isNullPool())
+					System.out.println(mcs.displayPoolSongs());
+				else
+					System.out.println("\nNo existen canciones en la pool de canciones para mostrar");
+					sc.nextLine();
 				break;
 			case ADD_PLAYLIST:
+				if(!mcs.isNullUser())
+					readPlayListData();
+				else
+					System.out.println("\nTal parece que no hay usuarios registrados aun.\nPrueba crear un usuario primero.");
+					sc.nextLine();
 				break;
 			case ADD_SONG_TO_PLAYLIST:
+				if(!mcs.isNullPlayList() || !mcs.isNullPool())
+					addSong();
+				else
+					System.out.println("\nTal parece que no existen canciones o playList.\nPrueba a crear estas primero =)");
+					sc.nextLine();
 				break;
 			case SEE_PLAYLIST:
+				if(!mcs.isNullPlayList())
+					System.out.println(mcs.displayPlayList());
+				else 
+					System.out.println("\nNo existen playlist que mostrar.");
+					sc.nextLine();
 				break;
 			case EXIT:
 				break;
 		}//End switch
 	}//End doOperation
+	
+	public void startProgram(){
+		int opt = 0;
+		showLogo();
+		do{
+			System.out.println("\nQue deseas hacer?...");
+			showMenu();
+			System.out.print("Ingrese la opcion que desea seguir: ");
+			opt = readOption();
+			doOperation(opt);
+		}while(opt != 8);//End do while
+	}//End startProgram
 }//End Menu

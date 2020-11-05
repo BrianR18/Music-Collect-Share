@@ -33,7 +33,7 @@ public class PublicPlayList extends PlayList{
 	}//End calculateQualification
 	@Override
 	public String toString(){
-		String obj = super.toString() + "Qualification: " + getQualification() + "\n";
+		String obj = super.toString() + "**Qualification: " + getQualification() + "\n";
 		return obj;
 	}//End toString
 }//End PublicPlayList

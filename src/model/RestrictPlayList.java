@@ -17,10 +17,12 @@ public class RestrictPlayList extends PlayList{
 	public String[] getOwners(){
 		return owners;
 	}//End getOwners.
-	
+	/*public String addOwner(String o){
+		
+	}*///End addOwner
 	@Override
 	public String toString(){
-		String obj = super.toString() + "Owners: ";
+		String obj = super.toString() + "**Owners: ";
 		boolean allOwners = false;
 		String[] owners = getOwners();
 		for(int i = 0; i < owners.length && !allOwners; i++){

@@ -28,7 +28,7 @@ public class MCS{
 		return msg;
 	}//End addUser
 	
-	private boolean checkName(String name){
+	public	boolean checkName(String name){
 		boolean check = false;
 		for(int i = 0; i < users.length && !check; i++){
 			if(users[i] != null){
@@ -145,4 +145,94 @@ public class MCS{
 		}//End for
 		return msg;
 	}//End displayPlayList
+	
+	public String displayGenres(){//Se requiere añadir al UML de clases apartir de aqui
+		String genres = new String();
+		Genre[] g = Genre.values();
+		for(Genre genre:g){
+			if(genre != Genre.DESCONOCIDO)
+				genres += "-" + genre.toString() + ".\n";
+		}//End for
+		return genres;
+	}//End displayGenres
+	
+	public boolean checkGenre(String genre){
+		boolean check = false;
+		Genre[] g = Genre.values();
+		genre = genre.toUpperCase();
+		for(int i = 0; i < g.length && ! check; i++){
+			if(g[i].toString().equals(genre)){
+				check = true;
+			}//End if
+		}//End for
+		return check;
+	}//End checkGenre
+	
+	public String displaySongsNames(){
+		boolean all = false;
+		String songsNames = new String();
+		for(int i = 0; i < poolSongs.length && !all; i++){
+			if(poolSongs[i] != null)
+				songsNames += "[" + (i+1) + "]" + poolSongs[i].getTittle() + " - artista: " + poolSongs[i].getName() + "\n";
+			else
+				all = true;
+		}//End for
+		return songsNames;
+	}//End displaySongsNames
+	
+	public String displayPlayListNames(){
+		boolean all = false;
+		String playlistNames = new String();
+		for(int i = 0; i < playList.length && !all; i++){
+			if(playList[i] != null)
+				playlistNames += "[" + (i+1) + "]" + playList[i].getName() + "\n";
+			else
+				all = true;
+		}//End for
+		return playlistNames;
+	}//End displayPlayListNames
+	public int amountPlaylist(){
+		boolean all = false;
+		int amount = 0;
+		for(int i = 0; i < playList.length && !all; i++ ){
+			if(playList[i] != null)
+				amount++;
+			else
+				all = true;
+		}//End for
+		return amount;
+	}//End amountPlaylist
+	
+	public int amountSongs(){
+		boolean all = false;
+		int amount = 0;
+		for(int i = 0; i < poolSongs.length && !all; i++ ){
+			if(poolSongs[i] != null)
+				amount++;
+			else
+				all = true;
+		}//End for
+		return amount;
+	}//End amountSongs
+	
+	public boolean isNullPlayList(){
+		boolean isnull = false;
+		if(playList[0] == null )
+			isnull = true;
+		return isnull;
+	}//En isNullPlayList
+	
+	public boolean isNullUser(){
+		boolean isnull = false;
+		if(users[0] == null )
+			isnull = true;
+		return isnull;
+	}//End isNullUser
+	
+	public boolean isNullPool(){
+		boolean isnull = false;
+		if(poolSongs[0] == null )
+			isnull = true;
+		return isnull;
+	}//En isNullPool
 }//End MCS

@@ -82,16 +82,16 @@ public class PlayList{
 		boolean exist = false;
 		for(int i = 0; i < genres.length && !update; i++){
 			if(genres[i] != null){
-				if(genres[i] == Genre.valueOf(genre)){
+				if(genres[i] == Genre.valueOf(genre))
 					exist = true;
-				}//End if
 			}//End if
 			else if(!exist){
 				genres[i] = Genre.valueOf(genre);
+				update = true;
 			}//end else if
 		}//End for
-		
 	}//End updateGenre
+	
 	public void updateDuration(int m,int s){
 		int hours = getHours();
 		int minutes = m + getMinutes();
