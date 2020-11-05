@@ -12,7 +12,8 @@ public class Menu{
 	private final int ADD_PLAYLIST = 5;
 	private final int ADD_SONG_TO_PLAYLIST = 6;
 	private final int SEE_PLAYLIST = 7;
-	private final int EXIT = 8;
+	private final int RATE_PLAYLIST = 8;
+	private final int EXIT = 9;
 	
 	//Choose playlist
 	private final int PUBLIC = 1;
@@ -75,7 +76,8 @@ public class Menu{
 		System.out.println("[5]Crear playlist.");
 		System.out.println("[6]Agregar cancion a la playlist.");
 		System.out.println("[7]Listar playlist existentes.");
-		System.out.println("[8]Salir");
+		System.out.println("[8]Calificar playList publica.");
+		System.out.println("[9]Salir");
 	}//End showMenu
 	
 	public int readOption(){
@@ -92,6 +94,7 @@ public class Menu{
 			System.out.print("\nIngrese el apodo del usuario: ");
 			name = sc.nextLine();
 		}//End while
+		System.out.println("Se guardara como [" + mcs.validateName(name) + "]");
 		System.out.print("Contrasenia: ");
 		String password = sc.nextLine();
 		System.out.print("Ingrese su edad: ");
@@ -198,6 +201,30 @@ public class Menu{
 		sc.nextLine();
 	}//End readPlayListData.
 	
+	public void rateList(){
+		System.out.println("Mostrando listas publicas...");
+		System.out.println(mcs.displayPublicPlayList());
+		System.out.print("Ingrese el numero de la lista a calificar: ");
+		int opt = sc.nextInt();
+		sc.nextLine();
+		while(opt < 1 || opt > mcs.amountPublicPlaylist()){
+			System.out.println("Opcion erronea!!");
+			System.out.print("Ingrese el numero de la lista a calificar: ");
+		    opt = sc.nextInt();
+			sc.nextLine();
+		}//End while
+		System.out.print("Ingrese una calificacion del 1 al 5 para la playList: ");
+		double score = sc.nextInt();
+		sc.nextLine();
+		while( score < 1 || score > 5){
+			System.out.println("Calificacion erronea!!");
+			System.out.print("Ingrese una calificacion del 1 al 5 para la playList: ");
+			score = sc.nextInt();
+			sc.nextLine();
+		}//End while
+		System.out.println(mcs.ratePlayList(opt, score));
+	}//End rateList
+	
 	public void addSong(){
 		System.out.println("\nMostrando playList existentes...");
 		System.out.println(mcs.displayPlayListNames());
@@ -269,6 +296,13 @@ public class Menu{
 					System.out.println("\nNo existen playlist que mostrar.");
 					sc.nextLine();
 				break;
+			case RATE_PLAYLIST:
+				if(!mcs.isNullPublicPlayList())
+					rateList();
+				else 
+					System.out.println("\nNo existen playlist publicas que mostrar.");
+					sc.nextLine();
+				break;
 			case EXIT:
 				break;
 		}//End switch
@@ -283,6 +317,6 @@ public class Menu{
 			System.out.print("Ingrese la opcion que desea seguir: ");
 			opt = readOption();
 			doOperation(opt);
-		}while(opt != 8);//End do while
+		}while(opt != 9);//End do while
 	}//End startProgram
 }//End Menu

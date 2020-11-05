@@ -151,6 +151,38 @@ public class MCS{
 		return msg;
 	}//End displayPlayList
 	
+	public String displayPublicPlayList(){
+		String publicList = new String();
+		int index = 0;
+		for(int i = 0; i < playList.length; i++){
+			if(playList[i] instanceof PublicPlayList){
+				++index;
+				System.out.println("["+index+"]"+playList[i].getName()+".");
+			}//End if
+		}//End for
+		return publicList;
+	}//End displayPublicPlayList
+	
+	public String ratePlayList(int index,double	score){
+		boolean update = false;
+		String msg = "No se ha podido calificar la playList";
+		int count = 0;
+		for(int i = 0; i < playList.length && !update; i++){
+			if(playList[i] != null){
+				if(playList[i] instanceof PublicPlayList){
+					++count;
+				if(count == index){
+						PublicPlayList publicList = (PublicPlayList) playList[i];
+						publicList.setScore(score);
+						update = true;
+						msg = "Se ha calificado la playList";
+					}//Enf if
+				}//End if
+			}//End if
+		}//End for
+		return msg;
+	}//End ratePlayList
+	
 	public String displayGenres(){//Se requiere añadir al UML de clases apartir de aqui
 		String genres = new String();
 		Genre[] g = Genre.values();
@@ -185,7 +217,7 @@ public class MCS{
 		return songsNames;
 	}//End displaySongsNames
 	
-	private String validateName(String s){
+	public String validateName(String s){
 		String validated = new String();
         for(int i = 0; i < s.length(); i++){
             if(s.charAt(i) != ' '){
@@ -218,6 +250,18 @@ public class MCS{
 		return amount;
 	}//End amountPlaylist
 	
+	public int amountPublicPlaylist(){
+		boolean all = false;
+		int amount = 0;
+		for(int i = 0; i < playList.length && !all; i++ ){
+			if(playList[i] instanceof PublicPlayList)
+				amount++;
+			else
+				all = true;
+		}//End for
+		return amount;
+	}//End amountPlaylist
+	
 	public int amountSongs(){
 		boolean all = false;
 		int amount = 0;
@@ -241,6 +285,16 @@ public class MCS{
 		}//End for
 		return amount;
 	}//End amountSongs
+	
+	public boolean isNullPublicPlayList(){
+		boolean isnull = true;
+		for(int i = 0; i < playList.length && isnull; i++){
+			if(playList[i] instanceof PublicPlayList){
+				isnull = false;
+			}//End if
+		}//End for
+		return isnull;
+	}//En isNullPlayList
 	
 	public boolean isNullPlayList(){
 		boolean isnull = false;
