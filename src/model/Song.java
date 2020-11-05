@@ -19,8 +19,7 @@ public class Song{
 		this.tittle = tittle;
 		this.artistName = name;
 		releaseDate = date;
-		this.minutes = minutes;
-		this.seconds = seconds;
+		checkDuration(minutes,seconds);
 		this.genre = Genre.valueOf(genre);
 	}//End constructor2
 	public void setTittle(String tittle){
@@ -59,7 +58,14 @@ public class Song{
 	public String getGenre(){
 		return genre.toString();
 	}//End getGenre
-	
+	public void checkDuration(int m, int s){
+		while(s >= 60){
+			m++;
+			s -= 60;
+		}//End while
+		setMinutes(m);
+		setSecond(s);
+	}//End checkDuration
 	public String toString(){
 		String obj = "\n***************Song***************\n" +
 					 "**Tittle: " + getTittle() + "\n" +

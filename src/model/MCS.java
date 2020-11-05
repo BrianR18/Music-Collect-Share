@@ -14,10 +14,10 @@ public class MCS{
 	public String addUser(String name,int age,String password){
 		String msg = "No se ha podido agregar el usuario.\nNo quedan espacios de registro";
 		boolean add = false;
-		if(!checkName(name)){
+		if(!checkName(validateName(name))){
 			for(int i = 0; i < users.length && !add; i++){
 				if(users[i] == null){
-					users[i] = new User(name,password,age);
+					users[i] = new User(validateName(name),password,age);
 					add = true;
 					msg = "Se ha agregado el usuario correctamente.";
 				}//End if
@@ -32,7 +32,7 @@ public class MCS{
 		boolean check = false;
 		for(int i = 0; i < users.length && !check; i++){
 			if(users[i] != null){
-				if(users[i].getName().equalsIgnoreCase(name)){
+				if(users[i].getName().equalsIgnoreCase(validateName(name))){
 					check = true;
 				}//End if equals
 			}//End if null
@@ -53,20 +53,25 @@ public class MCS{
 	}//End displayUsers.
 	public String addSong(String user,String title, String artistName, String releaseDate,int minutes,int seconds,String genre){
 		boolean add = false;
+		boolean found = false;
+		int index = 0;
+		user = validateName(user);
 		String msg = "No se ha podido agregar la cancion";
-		for(int i = 0; i < users.length && !add; i++){
+		for(int i = 0; i < users.length && !found; i++){
 			if(users[i] != null){
 				if(users[i].getName().equalsIgnoreCase(user)){
-					for(int j = 0; j < poolSongs.length && !add;j++ ){
-						if(poolSongs[j] == null){
-							poolSongs[j] = new Song(title,artistName,releaseDate,minutes,seconds,genre);
-							users[i].increaseShareSongs();
-							users[i].updateCategory();
-							add = true;
-							msg = "Se ha agregado la cancion";
-						}//End if
-					}//End for
+					index = i;
+					found = true;
 				}//End if
+			}//End if
+		}//End for
+		for(int i = 0; i < poolSongs.length && !add;i++ ){
+			if(poolSongs[i] == null){
+				poolSongs[i] = new Song(title,artistName,releaseDate,minutes,seconds,genre);
+				users[index].increaseShareSongs();
+				users[index].updateCategory();
+				add = true;
+				msg = "Se ha agregado la cancion";
 			}//End if
 		}//End for
 		return msg;
@@ -180,6 +185,16 @@ public class MCS{
 		return songsNames;
 	}//End displaySongsNames
 	
+	private String validateName(String s){
+		String validated = new String();
+        for(int i = 0; i < s.length(); i++){
+            if(s.charAt(i) != ' '){
+                validated += s.charAt(i);
+            }//End if
+        }//End for
+		return validated;
+	}//End validateString
+	
 	public String displayPlayListNames(){
 		boolean all = false;
 		String playlistNames = new String();
@@ -208,6 +223,18 @@ public class MCS{
 		int amount = 0;
 		for(int i = 0; i < poolSongs.length && !all; i++ ){
 			if(poolSongs[i] != null)
+				amount++;
+			else
+				all = true;
+		}//End for
+		return amount;
+	}//End amountSongs
+	
+	public int amountUsers(){
+		boolean all = false;
+		int amount = 0;
+		for(int i = 0; i < users.length && !all; i++ ){
+			if(users[i] != null)
 				amount++;
 			else
 				all = true;

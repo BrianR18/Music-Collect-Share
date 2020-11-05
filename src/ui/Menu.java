@@ -42,7 +42,7 @@ public class Menu{
 						"((((  (((   ,((  (((((/  ((((((((((((((((((  /((\n" +
 						"((((  /((   (((  ((((((  ,(((((((((((((((((  *((\n" +
 						"((((  /((((((((  ((((((/  .(((((((((((((((   (((\n" +
-						"((((  /((((((((  ((((((((       ((((* .(*   ((((\n" +
+						"((((  /((((((((  ((((((((       ((((*(.(*   ((((\n" +
 						"((((((((((((((((((((((((((((((((((((((((((((((((\n" +
 						"((((((((((((((((((((((((((((((((((((((((((((((((\n" +
 						"                    .#//////#.\n"+                                               
@@ -62,20 +62,20 @@ public class Menu{
 						"                  .............\n";              
 		System.out.println(logo);
 		sc.nextLine();
-		System.out.println("\n\n\n\nBIENVENIDO!!!\n\n\n");
+		System.out.println("\nBIENVENIDO!!!\n");
 		sc.nextLine();
 	}//End showLogo.
 	
 	public void showMenu(){
 		System.out.println("\n");
-		System.out.println("[1]Agregar usuario.\n");
-		System.out.println("[2]Listar usuarios.\n");
-		System.out.println("[3]Agregar cancion a la pool.\n");
-		System.out.println("[4]Listar canciones de la pool.\n");
-		System.out.println("[5]Crear playlist.\n");
-		System.out.println("[6]Agregar cancion a la playlist\n");
-		System.out.println("[7]Listar playlist existentes.\n");
-		System.out.println("[8]Salir\n");
+		System.out.println("[1]Agregar usuario.");
+		System.out.println("[2]Listar usuarios.");
+		System.out.println("[3]Agregar cancion a la pool.");
+		System.out.println("[4]Listar canciones de la pool.");
+		System.out.println("[5]Crear playlist.");
+		System.out.println("[6]Agregar cancion a la playlist.");
+		System.out.println("[7]Listar playlist existentes.");
+		System.out.println("[8]Salir");
 	}//End showMenu
 	
 	public int readOption(){
@@ -107,6 +107,7 @@ public class Menu{
 		String user = sc.nextLine();
 		while(!mcs.checkName(user)){
 			System.out.println("\""+user+"\" no es un usuario registrado en la aplicacion.");
+			System.out.println("Es posible que tenga que escribir el nombre sin espacios.");
 			System.out.print("\nIngrese el nombre sel usuario que creara la cancion: ");
 			user = sc.nextLine();
 		}//End while
@@ -277,7 +278,7 @@ public class Menu{
 		int opt = 0;
 		showLogo();
 		do{
-			System.out.println("\nQue deseas hacer?...");
+			System.out.print("\nQue deseas hacer?...");
 			showMenu();
 			System.out.print("Ingrese la opcion que desea seguir: ");
 			opt = readOption();
