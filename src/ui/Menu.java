@@ -1,7 +1,10 @@
 package ui;
 import model.MCS;
 import java.util.Scanner;
-
+/**
+*This class allows to create a menu for to use the MCS
+*@author BrianR
+*/
 public class Menu{
 	
 	//Main menu
@@ -22,11 +25,19 @@ public class Menu{
 	
 	private Scanner sc = new Scanner(System.in);
 	private MCS mcs;
-	
+	/**
+	*Constructor of the Menu class<br>
+	*<b>pre: </b>
+	*<b>post: </b>
+	*/
 	public Menu(){
 		mcs = new MCS();
 	}//End constructor
-
+	/**
+	*Show the logo of the program<br>
+	*<b>pre: </b>
+	*<b>post: </b>
+	*/
 	public void showLogo(){
 		String logo =   "((((((((((((((((((((((((((((((((((((((((((((((((\n" +
 						"((((((((((((((((((((((((((((((((((((((((((((((((\n" +
@@ -66,7 +77,11 @@ public class Menu{
 		System.out.println("\nBIENVENIDO!!!\n");
 		sc.nextLine();
 	}//End showLogo.
-	
+	/**
+	*Show the menu of the program<br>
+	*<b>pre: </b>
+	*<b>post: </b>
+	*/
 	public void showMenu(){
 		System.out.println("\n");
 		System.out.println("[1]Agregar usuario.");
@@ -79,13 +94,22 @@ public class Menu{
 		System.out.println("[8]Calificar playList publica.");
 		System.out.println("[9]Salir");
 	}//End showMenu
-	
+	/**
+	*Read the options choose by the user<br>
+	*<b>pre: </b>
+	*<b>post: </b>
+	*@return Return the option choose by the user
+	*/
 	public int readOption(){
 		int option = sc.nextInt();
 		sc.nextLine();
 		return option;
 	}//End readOption.
-	
+	/**
+	*Read the user data<br>
+	*<b>pre: </b>
+	*<b>post: </b>
+	*/
 	public void readUsersData(){
 		System.out.print("\nIngrese el apodo del usuario(el apodo se guardara sin espacios): ");
 		String name = sc.nextLine();
@@ -103,7 +127,11 @@ public class Menu{
 		System.out.println("\n" + mcs.addUser(name,age,password));
 		sc.nextLine();
 	}//End readUsersData
-	
+	/**
+	*Read the song data<br>
+	*<b>pre: </b>
+	*<b>post: </b>
+	*/
 	public void readSongData(){
 		String msg = new String();
 		System.out.print("\nIngrese el nombre del usuario que creara la cancion: ");
@@ -139,7 +167,11 @@ public class Menu{
 		msg = mcs.addSong(user,title,artistName,date,minutes,seconds,genre);
 		System.out.println("\n" + msg);
 	}//End readSongData
-	
+	/**
+	*Read the playList data<br>
+	*<b>pre: </b>
+	*<b>post: </b>
+	*/
 	public void readPlayListData(){
 		
 		String msg = new String();
@@ -200,7 +232,11 @@ public class Menu{
 		System.out.println("\n" + msg);
 		sc.nextLine();
 	}//End readPlayListData.
-	
+	/**
+	*Read the calification of the playList<br>
+	*<b>pre: </b>
+	*<b>post: </b>
+	*/
 	public void rateList(){
 		System.out.println("Mostrando listas publicas...");
 		System.out.println(mcs.displayPublicPlayList());
@@ -224,7 +260,11 @@ public class Menu{
 		}//End while
 		System.out.println(mcs.ratePlayList(opt, score));
 	}//End rateList
-	
+	/**
+	*Read a song and added to playList<br>
+	*<b>pre: </b>
+	*<b>post: </b>
+	*/
 	public void addSong(){
 		System.out.println("\nMostrando playList existentes...");
 		System.out.println(mcs.displayPlayListNames());
@@ -248,7 +288,12 @@ public class Menu{
 		System.out.println("\n" + mcs.addSongToPlayList(songIndex,playlistIndex));
 		sc.nextLine();
 	}//End addSong.
-	
+	/**
+	*Execute the opcion choose by the user<br>
+	*<b>pre: </b>
+	*<b>post: </b>
+	*@param option Option choose by the user
+	*/
 	public void doOperation(int option){
 		switch(option){
 			case ADD_USERS:
@@ -307,7 +352,11 @@ public class Menu{
 				break;
 		}//End switch
 	}//End doOperation
-	
+	/**
+	*Start the program<br>
+	*<b>pre: </b>
+	*<b>post: </b>
+	*/
 	public void startProgram(){
 		int opt = 0;
 		showLogo();
