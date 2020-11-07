@@ -198,7 +198,7 @@ public class Menu{
 				int i = 0;
 				opt = 0;
 				while(!end || i >= 5){
-					System.out.print("\n[1] Agregar propietario(maximo 5).\n[Cualquier otro numero] Dejar de agregar propietarios\n");
+					System.out.print("\n[1] Agregar propietario(maximo 5).\n\n[Cualquier otro numero] Dejar de agregar propietarios\n");
 					System.out.print("Ingrese la opcion: ");
 					opt = sc.nextInt();
 					sc.nextLine();
@@ -212,6 +212,9 @@ public class Menu{
 						}//End while
 						i++;
 					}//End if
+					else if(owners[0] == null){
+						System.out.println("Debes agregar al menos un propietario.");
+					}
 					else
 						end = true;
 				}//End while
